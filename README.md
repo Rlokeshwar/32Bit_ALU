@@ -31,10 +31,29 @@ A Blank Document opens up into which the following source code can be typed down
 (Note : File name should be with HDL Extension)
 
 ## a)To Verify the Functionality using Test Bench
-
-## Source Code – Using Case Statement :
-
-(Include program here)
+###  Source Code – Using Case Statement:
+```
+module alu_32bit_case(y,a,b,f);
+input [31:0]a;
+input [31:0]b;
+input [2:0]f;
+output reg [31:0]y;
+always@(*)
+begin
+case(f)
+3'b000:y=a&b; //AND Operation
+3'b001:y=a|b; //OR Operation
+3'b010:y=~(a&b); //NAND Operation
+3'b011:y=~(a|b); //NOR Operation
+3'b100:y=a+b; //Addition
+3'b101:y=a-b; //Subtraction
+3'b110:y=a*b; //Multiply
+default:y=32'bx;
+endcase
+end
+endmodule
+```
+endmodule
 
 Use Save option or Ctrl+S to save the code or click on the save option from the top most right corner and close the text file.
 
@@ -43,8 +62,28 @@ Use Save option or Ctrl+S to save the code or click on the save option from the 
 Similarly, create your test bench using gedit <filename_tb>.v or <filename_tb>.vhdl to open a new blank document (alu_32bit_tb_case).
 
 ## Test Bench :
-
-(Include test bench program here)
+```
+module alu_32bit_tb_case;
+reg [31:0]a;
+reg [31:0]b;
+reg [2:0]f;
+wire [31:0]y;
+alu_32bit_case test2(.y(y),.a(a),.b(b),.f(f));
+initial
+begin
+a=32'h00000000;
+b=32'hFFFFFFFF;
+#10 f=3'b000;
+#10 f=3'b001;
+#10 f=3'b010;
+#10 f=3'b011;
+#10 f=3'b100;
+#10 f=3'b101;
+#10 f=3'b110;
+#10;$stop;
+end
+endmodule
+```
 
 Use Save option or Ctrl+S to save the code or click on the save option from the top most right corner and close the text file.
 
@@ -59,6 +98,8 @@ source /cadence/install/cshrc (mention the path of the tools)
 (The path of cshrc could vary depending on the installation destination)
       
 After this you can see the window like below 
+![image](https://github.com/user-attachments/assets/4ae68991-4c83-41ac-b401-954ad2256bc7)
+
 
 ### Fig 2: Invoke the Cadence Environment
 
@@ -72,10 +113,14 @@ or
 
 
 It will invoke the nclaunch window for functional simulation we can compile,elaborate and simulate it using Multiple Step .
+![image](https://github.com/user-attachments/assets/58bff397-0c95-4d93-beca-dd408c946e1c)
+
 
 ### Fig 3: Setting Multi-step simulation
 
 Select Multiple Step and then select “Create cds.lib File” as shown in below figure 
+![image](https://github.com/user-attachments/assets/d258680e-d25a-4730-bf55-fab9251dccd6)
+
 
 Click the cds.lib file and save the file by clicking on Save option 
 
@@ -84,6 +129,8 @@ Click the cds.lib file and save the file by clicking on Save option
 Save cds.lib file and select the correct option for cds.lib file format based on the HDL Language and Libraries used. 
 
 Select “Don’t include any libraries (verilog design)” from “New cds.lib file” and click on “OK” as in below figure .
+![image](https://github.com/user-attachments/assets/a68b332b-1707-4c2f-93a3-2011730e5a49)
+
 
 We are simulating verilog design without using any libraries 
 
@@ -172,10 +219,16 @@ Outputs: Simulation log file, waveforms for debugging
 Simulation allow to dump design and test bench signals into a waveform 
 
 Steps for simulation – Run the simulation command with simulator options
+![WhatsApp Image 2024-11-22 at 17 42 42_dc72e75f](https://github.com/user-attachments/assets/868002a1-e9bb-4bfb-90db-9b3988a0cb89)
+
 
 ## Fig 9: Design Browser window for simulation
+![WhatsApp Image 2024-11-22 at 17 42 42_89e84e29](https://github.com/user-attachments/assets/83855835-2fdd-4e3d-a6cd-a39f9c5d3c72)
+
 
 ## Fig 10:Simulation Waveform Window
+![WhatsApp Image 2024-11-22 at 17 42 43_a2cc3ed3](https://github.com/user-attachments/assets/e8bcbb5e-5420-43bc-80da-85e85a15709a)
+
 
 ## Fig 11:Simulation Waveform Window
 
